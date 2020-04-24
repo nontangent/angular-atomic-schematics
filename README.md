@@ -7,17 +7,22 @@ This is repository for a Angular Atomic Schematics.
 ## Install
 You can install this package with `ng add`.
 
-### ng add
-
 ```bash
 $ ng add angular-atomic-schematics
+Skipping installation: Package already installed
+? Where do you setup Angular Atomic Components? src/app/shared/components
+? Where do you setup Angular Atomic Styles? src/styles
 ```
 
 ## How to Use
-- `ng g atom <name>` Creating Atom Component. 
-- `ng g molecule <name>` Creating Molecule Component.
-- `ng g organism <name>` Creating Organism Component.
-- `ng g template <name>` Creating Template Component.
+- `ng g atom <name>` create Atom in `<conponentsDir>/atoms/<name>`. 
+- `ng g molecule <name>` create Molecule in `<componentsDir>/molecules/<name>`.
+- `ng g organism <name>` create Organism in `<componentsDir>/organisms/<name>`.
+- `ng g template <name>` create Template in `<componentsDir>/templates/<name>`.
+
+`<componentsDir>` is configed when you run `ng add`.  
+In above case, `<componentsDir>` is `src/app/shared/components`  
+
 
 ## Host CSS Variable
 You can use **Host CSS Variable** `host-variavle()` or `hvar()`.  
