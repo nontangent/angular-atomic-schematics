@@ -34,12 +34,12 @@ $host: "--hoge-atom";
 
 	// Define Host CSS Variable.
 	@include host-variable(--width, 1000px);
-	// You can defined `hvar()` alias of `host-variable()`.
+	/\/ You can defined \`hvar()\` alias of \`host-variable()\`.
 	@include hvar(--height, calc(var(--width) / 2));
 }
 
 :host {
-	// You can call Host CSS Variable by `host-variable()` or `hvar()`. 
+	// You can call Host CSS Variable by \`host-variable()\` or \`hvar()\`. 
 	width: host-variable(--width);
 	height: hvar(--height);
 }
@@ -48,7 +48,8 @@ $host: "--hoge-atom";
 
 and you can setting CSS Variable from Molecules.
 
-```hogehoge.molecule.scss
+```scss
+// hogehoge.molecule.scss
 $host: "--hogehoge-molecule";
 @import 'atomic/host-variable';
 @import 'atomic/molecule';
@@ -59,7 +60,7 @@ $host: "--hogehoge-molecule";
 }
 
 :host {
-	// `hoge` is selector of above Hoge Component.
+	// \`hoge\` is selector of above Hoge Component.
 	hoge {
 		--width: calc(var(#{$host}--width) / 2);
 	}
