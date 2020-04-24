@@ -95,7 +95,7 @@ Editing atomic scss files, change atomic common style.
   @include atomic-component($host);
 
 	@include hvar($host, --base-color, black);
-  @include hvar($host, --main-color, white);
+	@include hvar($host, --main-color, white);
   @include hvar($host, --accent-color, red);
 
 	// All shild atoms become the same color as this molecule 
