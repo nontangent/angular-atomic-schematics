@@ -24,7 +24,8 @@ You can use **Host CSS Variable** `host-variavle()` or `hvar()`.
 This is capcelized CSS Variavle that is not accessed by other Component.
 
 ### Example
-``hoge.atom.scss
+```scss
+// hoge.atom.molecule.scss
 $host: "--hoge-atom";
 @import 'atomic/host-variable';
 @import 'atomic/atom';
@@ -34,12 +35,12 @@ $host: "--hoge-atom";
 
 	// Define Host CSS Variable.
 	@include host-variable(--width, 1000px);
-	/\/ You can defined \`hvar()\` alias of \`host-variable()\`.
+	// You can defined `hvar()` alias of `host-variable()`.
 	@include hvar(--height, calc(var(--width) / 2));
 }
 
 :host {
-	// You can call Host CSS Variable by \`host-variable()\` or \`hvar()\`. 
+	// You can call Host CSS Variable by `host-variable()` or `hvar()`. 
 	width: host-variable(--width);
 	height: hvar(--height);
 }
@@ -60,7 +61,7 @@ $host: "--hogehoge-molecule";
 }
 
 :host {
-	// \`hoge\` is selector of above Hoge Component.
+	// `hoge` is selector of above Hoge Component.
 	hoge {
 		--width: calc(var(#{$host}--width) / 2);
 	}
