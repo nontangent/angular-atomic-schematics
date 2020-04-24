@@ -1,7 +1,7 @@
 # Angular Atomic Schematics
 
 This is repository for a Angular Atomic Schematics.  
-Don't touch this repository because I'm adjusting now.  
+**DON'T TOUCH THIS REPOSITORY BECAUSE I'M ADJUSTING NOW.**  
 
 
 ## Install
