@@ -31,8 +31,8 @@ In above case, `<componentsDir>` is `src/app/shared/components`
 
 
 ## Host CSS Variable
-You can use **Host CSS Variable** `host-variavle()` or `hvar()`.  
-This is capcelized CSS Variavle that is not accessed by other Component.
+You can use **Host CSS Variable** `host-variable()` or `hvar()`.  
+This is capcelized CSS Variable that is not accessed by other Component.
 
 ### Example
 ```scss
