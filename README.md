@@ -42,7 +42,7 @@ $host: "--hoge-atom";
 @import 'atomic/atom';
 
 :host {
-	@include atom();
+	@include atom($host);
 
 	// Define Host CSS Variable.
 	@include host-variable(--width, 1000px);
@@ -67,7 +67,7 @@ $host: "--hogehoge-molecule";
 @import 'atomic/molecule';
 
 :host {
-	@include molecule();
+	@include molecule($host);
 	@include hvar(--width, 300px);
 }
 
@@ -76,6 +76,35 @@ $host: "--hogehoge-molecule";
 	hoge {
 		--width: calc(var(#{$host}--width) / 2);
 	}
+}
+
+```
+
+## Atomic Common Style
+Editing atomic scss files, change atomic common style.
+
+### Example
+
+```scss
+// src/styles/atomic/_molecule.scss
+
+@import 'atomic/host-variable';
+@import 'atomic/atomic-component';
+
+@mixin molecule($host) {
+  @include atomic-component($host);
+
+	@include host-variable($host, --base-color, black;
+  @include host-variable($host, --main-color, white;
+  @include host-variable($host, --accent-color, red);
+
+	// All shild atoms become the same color as this molecule 
+  * {
+    --base-color: var(#{$host}--base-color);
+    --main-color: var(#{$host}--main-color);
+    --accent-color: var(#{$host}--accent-color);
+  }
+
 }
 
 ```
