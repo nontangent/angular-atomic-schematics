@@ -1,28 +1,68 @@
 # Angular Atomic Schematics
 
-This repository is a basic Schematic implementation that serves as a starting point to create and publish Schematics to NPM.
+This is repository for a Angular Atomic Schematics.  
+Don't touch this repository because I'm adjusting now.  
 
-### Testing
 
-To test locally, install `@angular-devkit/schematics-cli` globally and use the `schematics` command line tool. That tool acts the same as the `generate` command of the Angular CLI, but also has a debug mode.
+## Install
+You can install this package with `ng add`.
 
-Check the documentation with
-```bash
-schematics --help
-```
-
-### Unit Testing
-
-`npm run test` will run the unit tests, using Jasmine as a runner and test framework.
-
-### Publishing
-
-To publish, simply do:
+### ng add
 
 ```bash
-npm run build
-npm publish
+$ ng add angular-atomic-schematics
 ```
 
-That's it!
- 
+## How to Use
+- `ng g atom <name>` Creating Atom Component. 
+- `ng g molecule <name>` Creating Molecule Component.
+- `ng g organism <name>` Creating Organism Component.
+- `ng g template <name>` Creating Template Component.
+
+## Host CSS Variable
+You can use **Host CSS Variable** `host-variavle()` or `hvar()`.  
+This is capcelized CSS Variavle that is not accessed by other Component.
+
+### Example
+``hoge.atom.scss
+$host: "--hoge-atom";
+@import 'atomic/host-variable';
+@import 'atomic/atom';
+
+:host {
+	@include atom();
+
+	// Define Host CSS Variable.
+	@include host-variable(--width, 1000px);
+	// You can defined `hvar()` alias of `host-variable()`.
+	@include hvar(--height, calc(var(--width) / 2));
+}
+
+:host {
+	// You can call Host CSS Variable by `host-variable()` or `hvar()`. 
+	width: host-variable(--width);
+	height: hvar(--height);
+}
+
+```
+
+and you can setting CSS Variable from Molecules.
+
+```hogehoge.molecule.scss
+$host: "--hogehoge-molecule";
+@import 'atomic/host-variable';
+@import 'atomic/molecule';
+
+:host {
+	@include molecule();
+	@include hvar(--width, 300px);
+}
+
+:host {
+	// `hoge` is selector of above Hoge Component.
+	hoge {
+		--width: calc(var(#{$host}--width) / 2);
+	}
+}
+
+```

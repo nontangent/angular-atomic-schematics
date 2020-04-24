@@ -1,6 +1,6 @@
 {
   "name": "angular-atomic-schematics",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "This is an atomic design schematics for Angular.",
   "scripts": {
     "build": "tsc -p tsconfig.json && scripts/post-build.sh",
@@ -12,7 +12,7 @@
   "keywords": [
     "schematics"
   ],
-  "author": "",
+  "author": "Nozomu Miyamoto",
   "license": "MIT",
   "schematics": "./dist/collection.json",
   "dependencies": {
