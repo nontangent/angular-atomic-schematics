@@ -25,7 +25,7 @@ This is capcelized CSS Variavle that is not accessed by other Component.
 
 ### Example
 ```scss
-// hoge.atom.molecule.scss
+// hoge.atom.scss
 $host: "--hoge-atom";
 @import 'atomic/host-variable';
 @import 'atomic/atom';
