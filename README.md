@@ -1,8 +1,11 @@
+# DON'T TOUCH THIS REPOSITORY BECAUSE I'M ADJUSTING NOW.
 # Angular Atomic Schematics
+This is an Angular Atomic Schematics.  
 
-This is repository for a Angular Atomic Schematics.  
-**DON'T TOUCH THIS REPOSITORY BECAUSE I'M ADJUSTING NOW.**  
-
+## Features
+- Generate Atomic Component by CLI
+- Host CSS Variable
+- Atomic Common Style
 
 ## Install
 You can install this package with `ng add`.
@@ -14,7 +17,10 @@ Skipping installation: Package already installed
 ? Where do you setup Angular Atomic Styles? src/styles
 ```
 
-## How to Use
+## Generate Atomic Component by CLI
+You can generate Atomic Component(Atom, Molecule, Organism, Template) by CLI. 
+There are something to implement Angular Components.  
+
 - `ng g atom <name>` create Atom in `<conponentsDir>/atoms/<name>`. 
 - `ng g molecule <name>` create Molecule in `<componentsDir>/molecules/<name>`.
 - `ng g organism <name>` create Organism in `<componentsDir>/organisms/<name>`.
