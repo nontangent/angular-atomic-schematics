@@ -1,0 +1,6 @@
+$host: "--<%= dasherize(name) %>";
+@import 'atomic/organism';
+
+:host {
+  @include organism($host);
+}

@@ -1,0 +1,6 @@
+$host: "--<%= dasherize(name) %>";
+@import 'atomic/template';
+
+:host {
+  @include template($host);
+}
