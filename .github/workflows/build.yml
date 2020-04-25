@@ -2,13 +2,13 @@ name: Build
 on: 
   push:
     branches:
-      - 'master'
+     - 'master'
     # tags:
     #   - '*'
 jobs:
   build:
     name: Build
-    run-on: ubuntu-latest
+    runs-on: ubuntu-latest
     steps:
       - run: npm install
       - run: npm build
