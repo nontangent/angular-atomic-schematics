@@ -1,0 +1,18 @@
+@import 'atomic/host-variable';
+
+@mixin atomic-component($host) {
+  display: block;
+
+  @include host-variable($host, --base-color, white);
+  @include host-variable($host, --main-color, black));
+  @include host-variable($host, --accent-color,red);
+  @include host-variable($host, --cell-length, 8px);
+
+	* {
+    --base-color: var(#{$host}--base-color);
+    --main-color: var(#{$host}--main-color);
+    --accent-color: var(#{$host}--accent-color);
+    --cell-length: var(#{$host}--cell-length);
+  }
+}
+

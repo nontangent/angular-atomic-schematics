@@ -1,0 +1,49 @@
+@function tripInitial($str) {
+  @return str-slice($str, 2);
+}
+
+@mixin host-variable($args...) {
+  $host: $host;
+  $variable: false;
+  $default: false;
+
+  @if length($args) == 2 {
+    $variable: nth($args, 1);
+    $default: nth($args, 2);
+  } @else if length($args) == 3 {
+    $host: nth($args, 1);
+    $variable: nth($args, 2);
+    $default: nth($args, 3);
+  } @else {
+    @warn "length of host-var mixin $args must be 2 or 3!";
+  }
+
+  #{$variable}: $default;
+  #{$host}#{tripInitial($variable)}: var(#{$variable});
+  #{$host}#{$variable}: var(#{$variable});
+}
+
+@function host-variable($args...) {
+  $host: $host;
+  $variable: false;
+
+  @if length($args) == 1 {
+    $variable: nth($args, 1);
+  } @else if length($args) == 2 {
+    $host: nth($args, 1);
+    $variable: nth($args, 2);
+  } @else {
+    @warn "length of host-var mixin $args must be 1 or 2!";
+  }
+
+  @return var(#{$host}#{tripInitial($variable)});
+}
+
+
+// Alias
+@mixin host-var($args...) { @include host-variable($args...); }
+@mixin hvar($args...) { @include host-variable($args...); }
+
+@function host-var($args...) { @return host-variable($args...); }
+@function hvar($args...) { @return host-variable($args...); }
+

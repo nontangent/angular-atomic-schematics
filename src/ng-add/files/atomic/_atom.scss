@@ -1,0 +1,12 @@
+@import 'atomic/host-variable';
+@import 'atomic/component';
+
+@mixin atom($host) {
+  @include atomic-component($host);
+  @include host-variable($host, --width, 100%);
+  @include host-variable($host, --height, 100%);
+
+  width: var(#{$host}--width);
+  height: var(#{$host}--height);
+}
+
