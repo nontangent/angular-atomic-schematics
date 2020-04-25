@@ -12,6 +12,8 @@ jobs:
     steps:
       - run: npm install
       - run: npm build
+      - run: pwd 
+      - run: ls
       - name: Upload Distibution Directory
         uses: actions/upload-artifact@v1
         with:
