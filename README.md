@@ -92,18 +92,17 @@ Editing atomic scss files, change atomic common style.
 @import 'atomic/atomic-component';
 
 @mixin molecule($host) {
-  @include atomic-component($host);
-
+	@include atomic-component($host);
 	@include hvar($host, --base-color, black);
 	@include hvar($host, --main-color, white);
-  @include hvar($host, --accent-color, red);
-
+	@include hvar($host, --accent-color, red);
+	
 	// All shild atoms become the same color as this molecule 
-  * {
-    --base-color: hvar(--base-color);
-    --main-color: hvar(--main-color);
-    --accent-color: hvar(--accent-color);
-  }
+	* {
+		--base-color: hvar(--base-color);
+		--main-color: hvar(--main-color);
+		--accent-color: hvar(--accent-color);
+	}
 
 }
 
