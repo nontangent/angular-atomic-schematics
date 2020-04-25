@@ -1,0 +1,13 @@
+name: Build
+on: 
+  push:
+    tags:
+      - '*'
+jobs:
+  build:
+    name: Build
+    run-on: node
+    steps:
+      - run: npm install
+      - run: npm build
+    
