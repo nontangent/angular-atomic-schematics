@@ -20,9 +20,7 @@ jobs:
         id: get_version
         run: echo ::set-output name=VERSION::${GITHUB_REF/refs\/tags\//}
       - name: Set Node Package Version
-        run: npm version ${{ steps.get_version.outputs.VERSION }}
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_ACCESS_TOKEN }}
+        run: npm version --git-tag-version false ${{ steps.get_version.outputs.VERSION }}
       - name: Publish Node Package
         run: npm publish
         env:
