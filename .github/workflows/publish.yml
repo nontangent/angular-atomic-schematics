@@ -1,0 +1,26 @@
+name: Build
+on: 
+  push:
+    tags:
+      - '*'
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - run: npm install
+      - run: npm run build
+      - name: Upload Distibution Directory
+        uses: actions/upload-artifact@v1
+        with:
+          name: dist
+          path: dist
+      - name: Get the version
+        id: get_version
+        run: echo ::set-output name=VERSION::${GITHUB_REF/refs\/tags\//}
+      - name: Set Node Package Version
+        run: npm version ${{ steps.get_version.outputs.VERSION }}
+      - name: Publish Node Package
+        run: npm publish
+  
