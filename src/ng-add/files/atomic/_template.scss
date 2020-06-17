@@ -1,14 +1,12 @@
-@import 'atomic/host-variable';
+@import 'host-variable';
 @import 'atomic/component';
 
 @mixin template($host) {
-  @include atomic-component($host);
-	@include host-variable($host, --navigator-height, 80px);
-	@include host-variable($host, --width, 100%);
-	@include host-variable($host, --min-height, calc(100vh - var(--navigator-height));
+	@include component($host);
+  @include hvar(--width, 100%);
+  @include hvar(--height, 100%);
 
-  width: host-variable(--width);
-  min-height: host-variable(--min-height);
-
+  width: hvar(--width);
+  height: hvar(--height);
 }
 

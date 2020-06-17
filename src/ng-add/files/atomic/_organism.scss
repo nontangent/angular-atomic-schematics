@@ -1,7 +1,12 @@
-@import 'atomic/host-variable';
+@import 'host-variable';
 @import 'atomic/component';
 
 @mixin organism($host) {
-  @include atomic-component($host);
+	@include component($host);
+  @include hvar(--width, 100%);
+  @include hvar(--height, 100%);
+
+  width: hvar(--width);
+  height: hvar(--height);
 }
 

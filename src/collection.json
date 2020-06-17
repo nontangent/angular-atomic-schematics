@@ -2,28 +2,33 @@
   "$schema": "../node_modules/@angular-devkit/schematics/collection-schema.json",
   "extends": "@schematics/angular",
   "schematics": {
+		"atomic-component": {
+			"description": "Create an atomic component",
+			"factory": "./atomic-component/index#atom",
+			"schema": "./atomic-component/schema.json"
+		},
     "atom": {
       "description": "Create an atom.",
-      "factory": "./atom/index#atom",
-      "schema": "./atom/schema.json"
+      "factory": "./atomic-component/index#atom",
+      "schema": "./atomic-component/schema.json"
     },
     "molecule": {
       "description": "Create an molecule.",
-      "factory": "./molecule/index#molecule",
-      "schema": "./molecule/schema.json"
+			"factory": "./atomic-component/index#molecule",
+      "schema": "./atomic-component/schema.json"
     },
     "organism": {
       "description": "Create an organism.",
-      "factory": "./organism/index#organism",
-      "schema": "./organism/schema.json"
+			"factory": "./atomic-component/index#organism",
+			"schema": "./atomic-component/schema.json"
     },
     "template": {
       "description": "Create an template.",
-      "factory": "./template/index#template",
-      "schema": "./template/schema.json"
+			"factory": "./atomic-component/index#template",
+      "schema": "./atomic-component/schema.json"
     },
 		"ng-add": {
-			"description": "Add ngx-atomic-schematics",
+			"description": "Add angular-atomic-schematics",
 			"factory": "./ng-add/index",
 			"schema": "./ng-add/schema.json"
 		},

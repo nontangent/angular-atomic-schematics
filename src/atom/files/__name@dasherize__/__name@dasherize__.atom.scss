@@ -1,6 +1,0 @@
-$host: "--<%= dasherize(name) %>";
-@import 'atomic/atom';
-
-:host {
-  @include atom($host);
-}

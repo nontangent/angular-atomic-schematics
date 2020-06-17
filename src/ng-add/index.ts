@@ -24,13 +24,19 @@ export default function(options: any): Rule {
 
 		addPackageToPackageJson(host, packageName, '0.0.0');
 		
-		const collection = `${packageName}/dist/collection.json`;
-		setDefaultCollectionToAngularJson(host, collection);
+		setDefaultCollectionToAngularJson(
+			host, 
+			packageName			
+		);
 
 		['atom', 'molecule', 'organism', 'template'].forEach((component) => {
-			addSchematicToAngularJson(host, options.project, collection, component, {
-				'path': `${options.componentsDir}/${component}s`
-			});
+			addSchematicToAngularJson(
+				host, 
+				options.project, 
+				packageName, 
+				component, 
+				{'path': `${options.componentsDir}/${component}s`}
+			);
 		});
 
 		addStyleIncludePathToAngularJson(host, options.project, 'src/styles');
