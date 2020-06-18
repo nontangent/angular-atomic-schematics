@@ -25,7 +25,7 @@ import {
 import * as format from 'string-template';
 import { join } from 'path';
 
-export function atomicSchematic(options: any): Rule {
+export default function atomicComponent(options: any): Rule {
 	return async (host: Tree, _: SchematicContext) => {
 		const workspace = await getWorkspace(host);
 		const project = workspace.projects.get(options.project);
@@ -98,18 +98,18 @@ export function exportBarrel(options: any){
 }
 
 export function atom(options: any): Rule {
-	return atomicSchematic({...options, type: 'atom'});
+	return atomicComponent({...options, type: 'atom'});
 }
 
 export function molecule(options: any): Rule {
-	return atomicSchematic({...options, type: 'molecule'});
+	return atomicComponent({...options, type: 'molecule'});
 }
 
 export function organism(options: any): Rule {
-	return atomicSchematic({...options, type: 'organism'});
+	return atomicComponent({...options, type: 'organism'});
 }
 
 export function template(options: any): Rule {
-	return atomicSchematic({...options, type: 'template'});
+	return atomicComponent({...options, type: 'template'});
 }
 

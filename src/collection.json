@@ -3,11 +3,9 @@
   "extends": "@schematics/angular",
   "schematics": {
 		"atomic-component": {
-			"aliases": [
-				"ac"
-			],
+			"aliases": ["ac"],
 			"description": "Create an atomic component",
-			"factory": "./atomic-component/index#atom",
+			"factory": "./atomic-component/index",
 			"schema": "./atomic-component/schema.json"
 		},
     "atom": {
@@ -38,7 +36,8 @@
 		"setup-project": {
 			"description": "Setup angular-atomic-schematics",
 			"factory": "./setup-project/index",
-			"schema": "./ng-add//schema.json"
+			"schema": "./ng-add//schema.json",
+			"hidden": true
 		}
   }
 }
