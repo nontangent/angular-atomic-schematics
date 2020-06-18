@@ -3,12 +3,15 @@
   "extends": "@schematics/angular",
   "schematics": {
 		"atomic-component": {
+			"aliases": [
+				"ac"
+			],
 			"description": "Create an atomic component",
 			"factory": "./atomic-component/index#atom",
 			"schema": "./atomic-component/schema.json"
 		},
     "atom": {
-      "description": "Create an atom.",
+			"description": "Create an atom.",
       "factory": "./atomic-component/index#atom",
       "schema": "./atomic-component/schema.json"
     },
@@ -32,10 +35,10 @@
 			"factory": "./ng-add/index",
 			"schema": "./ng-add/schema.json"
 		},
-		"ng-add-setup-project": {
+		"setup-project": {
 			"description": "Setup angular-atomic-schematics",
-			"factory": "./ng-add/setup-project",
-			"schema": "./ng-add/schema.json"
+			"factory": "./setup-project/index",
+			"schema": "./ng-add//schema.json"
 		}
   }
 }

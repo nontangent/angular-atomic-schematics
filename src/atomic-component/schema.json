@@ -81,7 +81,17 @@
 		"type": {
       "type": "string",
       "description": "Adds a developer-defined type to the filename, in the format \"name.type.ts\".",
-      "default": "Component"
+			"default": "Component",
+			"x-prompt": {
+				"type": "list",
+				"items": [
+					{"value": "atom", "label": "Atom"},
+					{"value": "atom", "label": "Molecule"},
+					{"value": "atom", "label": "Organism"},
+					{"value": "atom", "label": "Template"},
+					{"value": "page", "label": "Page"},
+				]
+			}
     },
     "skipTests": {
       "type": "boolean",

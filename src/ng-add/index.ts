@@ -11,40 +11,20 @@ import {
 } from '@angular-devkit/schematics/tasks';
 import { 
 	addPackageToPackageJson,
-} from './package-config';
-import {
-	setDefaultCollectionToAngularJson,
-	addSchematicToAngularJson,
-	addStyleIncludePathToAngularJson
-} from './angular-config';
+} from '../utilities';
 
 export default function(options: any): Rule {
   return (host: Tree, context: SchematicContext) => {
 		const packageName = 'angular-atomic-schematics';
 
-		addPackageToPackageJson(host, packageName, '0.0.0');
-		
-		setDefaultCollectionToAngularJson(
+		addPackageToPackageJson(
 			host, 
-			packageName			
+			packageName, 
+			'^0.0.0',
+			'devDependencies'
 		);
-
-		['atom', 'molecule', 'organism', 'template'].forEach((component) => {
-			addSchematicToAngularJson(
-				host, 
-				options.project, 
-				packageName, 
-				component, 
-				{'path': `${options.componentsDir}/${component}s`}
-			);
-		});
-
-		addStyleIncludePathToAngularJson(host, options.project, 'src/styles');
-
-		/* const installTaskId = context.addTask(new NodePackageInstallTask()); */
-
-		/* context.addTask(new RunSchematicTask('ng-add-setup-project', options), [installTaskId]) */
-
-		context.addTask(new RunSchematicTask('ng-add-setup-project', options));
+		
+		const installTaskId = context.addTask(new NodePackageInstallTask());
+		context.addTask(new RunSchematicTask('ng-add-setup-project', {...options}), [installTaskId])
   }
 }
