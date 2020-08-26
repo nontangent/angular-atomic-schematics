@@ -12,7 +12,7 @@ export default function(options: any): Rule {
 		addPackageToPackageJson(
 			host, 
 			packageName, 
-			'0.1.x',
+			'0.2.x',
 			'devDependencies'
 		);
 
