@@ -18,8 +18,11 @@ import {
 
 export default function(options: any): Rule {
 	return chain([
+		// angular.jsonの更新
 		setUpAngularJson({...options}),
-		addStyleFiles({...options})
+		// Angular Commons Stylesの追加
+		addStyleFiles({...options}),
+		setUpTsConfig({...options})
 	]);
 }
 
@@ -27,11 +30,13 @@ export function setUpAngularJson(options: any) {
 	return (host: Tree, context: SchematicContext) => {
 		const packageName = 'angular-atomic-schematics';
 
+		// デフォルトのSchematicsをAngular Atomic Schematicsに変更
 		setDefaultCollectionToAngularJson(
 			host, 
 			packageName			
 		);
 
+		// 各Atomic ComponentのSchematicsの設定を追加
 		['atom', 'molecule', 'organism', 'template'].forEach((component) => {
 			addSchematicToAngularJson(
 				host, 
@@ -42,8 +47,10 @@ export function setUpAngularJson(options: any) {
 			);
 		});
 
+		// Atomic Common Stylesにパスを通す
 		addStyleIncludePathToAngularJson(host, options.project, 'src/styles');
 
+		return host;
 	};
 }
 
@@ -54,5 +61,11 @@ export function addStyleFiles(options: any) {
 			template({}),
 			move(options.stylesDir)
 		]));
+	}
+}
+
+export function setUpTsConfig(options: any) {
+	return (host: Tree, context: SchematicContext) => {
+		return host;
 	}
 }

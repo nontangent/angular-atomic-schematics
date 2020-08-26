@@ -17,14 +17,32 @@ export default function(options: any): Rule {
   return (host: Tree, context: SchematicContext) => {
 		const packageName = 'angular-atomic-schematics';
 
+		// 必要なパッケージの追加
 		addPackageToPackageJson(
 			host, 
 			packageName, 
-			'^0.0.0',
+			'0.1.x',
 			'devDependencies'
 		);
+
+		addPackageToPackageJson(
+			host,
+			'angular-host-css-variable',
+			'0.2.x',
+			'devDependencies'
+		);
+
+		// angular-host-css-variableのインストール
+		const runSchematicTask = context.addTask(new RunSchematicTask(
+			'angular-host-css-variable',
+			'ng-add',
+			{ project: options.project }
+		));
 		
-		const installTaskId = context.addTask(new NodePackageInstallTask());
-		context.addTask(new RunSchematicTask('ng-add-setup-project', {...options}), [installTaskId])
+		// Set Up Angular Atomic Schematics
+		const installTaskId = context.addTask(new NodePackageInstallTask(), [runSchematicTask]);
+		context.addTask(new RunSchematicTask('setup-project', {...options}), [installTaskId])
+
+		return host
   }
 }

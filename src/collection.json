@@ -2,12 +2,12 @@
   "$schema": "../node_modules/@angular-devkit/schematics/collection-schema.json",
   "extends": "@schematics/angular",
   "schematics": {
-		"atomic-component": {
-			"aliases": ["ac"],
-			"description": "Create an atomic component",
-			"factory": "./atomic-component/index",
-			"schema": "./atomic-component/schema.json"
-		},
+	"atomic-component": {
+		"aliases": ["ac"],
+		"description": "Create an atomic component",
+		"factory": "./atomic-component/index",
+		"schema": "./atomic-component/schema.json"
+	},
     "atom": {
 			"description": "Create an atom.",
       "factory": "./atomic-component/index#atom",
@@ -28,16 +28,16 @@
 			"factory": "./atomic-component/index#template",
       "schema": "./atomic-component/schema.json"
     },
-		"ng-add": {
-			"description": "Add angular-atomic-schematics",
-			"factory": "./ng-add/index",
-			"schema": "./ng-add/schema.json"
-		},
-		"setup-project": {
-			"description": "Setup angular-atomic-schematics",
-			"factory": "./setup-project/index",
-			"schema": "./ng-add//schema.json",
-			"hidden": true
-		}
+	"ng-add": {
+		"description": "Add angular-atomic-schematics",
+		"factory": "./ng-add/index",
+		"schema": "./ng-add/schema.json"
+	},
+	"setup-project": {
+		"description": "Setup angular-atomic-schematics",
+		"factory": "./setup-project/index",
+		"schema": "./ng-add//schema.json",
+		"hidden": true
+	}
   }
 }

@@ -12,7 +12,6 @@ import {
 } from '@angular-devkit/schematics';
 import { normalize } from 'path';
 import * as strings from '@angular-devkit/core/src/utils/strings';
-import { applyLintFix } from '@schematics/angular/utility/lint-fix';
 import { parseName } from '@schematics/angular/utility/parse-name';
 import { 
 	validateHtmlSelector, 
@@ -71,8 +70,7 @@ export default function atomicComponent(options: any): Rule {
 					move(options.path)
 				]),
 			),
-			exportBarrel({...options}),
-			applyLintFix(options.path)
+			exportBarrel({...options})
 		]);
 
 	} 
