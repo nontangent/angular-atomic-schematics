@@ -69,7 +69,6 @@ export function addStyleIncludePathToAngularJson(
 
 	}
 
-	return host
+	return host;
 
 }
-

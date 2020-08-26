@@ -13,7 +13,8 @@ import { getWorkspace } from '@schematics/angular/utility/config';
 import {
 	addSchematicToAngularJson,
 	addStyleIncludePathToAngularJson,
-	setDefaultCollectionToAngularJson
+	setDefaultCollectionToAngularJson,
+	addPathsToTsConfig
 } from '../utilities';
 
 export default function(options: any): Rule {
@@ -66,6 +67,10 @@ export function addStyleFiles(options: any) {
 
 export function setUpTsConfig(options: any) {
 	return (host: Tree, context: SchematicContext) => {
+
+		// ts.configにパスを通す
+		addPathsToTsConfig(host, options.componentsDir);
+
 		return host;
 	}
 }
