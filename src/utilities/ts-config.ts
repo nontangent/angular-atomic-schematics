@@ -1,4 +1,5 @@
 import { Tree } from '@angular-devkit/schematics';
+import { parse } from "jsonc-parser";
 
 export function addPathsToTsConfig(
 	host: Tree,
@@ -14,7 +15,7 @@ export function addPathsToTsConfig(
 
 	if (targetFile) {
 		const src = host.read(targetFile)!.toString('utf-8');
-		const json = JSON.parse(src);
+		const json = parse(src);
 
 		json.compilerOptions.paths = json.compilerOptions?.paths || {};
 		json.compilerOptions.paths = {
