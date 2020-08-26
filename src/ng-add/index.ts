@@ -1,14 +1,5 @@
-import {
-  chain,
-  Rule,
-  schematic,
-  SchematicContext,
-  Tree
-} from '@angular-devkit/schematics';
-import { 
-	NodePackageInstallTask, 
-	RunSchematicTask 
-} from '@angular-devkit/schematics/tasks';
+import { Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
+import { NodePackageInstallTask, RunSchematicTask } from '@angular-devkit/schematics/tasks';
 import { 
 	addPackageToPackageJson,
 } from '../utilities';
@@ -32,16 +23,24 @@ export default function(options: any): Rule {
 			'devDependencies'
 		);
 
+		addPackageToPackageJson(
+			host,
+			'angular-custom-webpack-chaining',
+			'0.4.x',
+			'devDependencies'
+		);
+
+		const installTaskId = context.addTask(new NodePackageInstallTask());
+
 		// angular-host-css-variableのインストール
 		const runSchematicTask = context.addTask(new RunSchematicTask(
 			'angular-host-css-variable',
 			'ng-add',
 			{ project: options.project }
-		));
+		), [installTaskId]);
 		
 		// Set Up Angular Atomic Schematics
-		const installTaskId = context.addTask(new NodePackageInstallTask(), [runSchematicTask]);
-		context.addTask(new RunSchematicTask('setup-project', {...options}), [installTaskId])
+		context.addTask(new RunSchematicTask('setup-project', {...options}), [runSchematicTask])
 
 		return host
   }
