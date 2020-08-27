@@ -96,18 +96,34 @@ export function exportBarrel(options: any){
 }
 
 export function atom(options: any): Rule {
-	return atomicComponent({...options, type: 'atom'});
+	return atomicComponent({
+		...options, 
+		type: 'atom', 
+		prefix: options.prefix || 'atoms'
+	});
 }
 
 export function molecule(options: any): Rule {
-	return atomicComponent({...options, type: 'molecule'});
+	return atomicComponent({
+		...options, 
+		type: 'molecule',
+		prefix: options.prefix || 'molecules'
+	});
 }
 
 export function organism(options: any): Rule {
-	return atomicComponent({...options, type: 'organism'});
+	return atomicComponent({
+		...options, 
+		type: 'organism',
+		prefix: options.prefix || 'organisms'
+	});
 }
 
 export function template(options: any): Rule {
-	return atomicComponent({...options, type: 'template'});
+	return atomicComponent({
+		...options, 
+		type: 'template',
+		prefix: options.prefix || 'templates'
+	});
 }
 

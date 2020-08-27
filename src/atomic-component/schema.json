@@ -135,7 +135,7 @@
     },
 		"styleHeader": {
 			"type": "string",
-			"default": "@import 'host-variable';\n$host: host('{name}');\n\n:host {\n\t{type}()\n}\n",
+			"default": "@import 'host-variable';\n@import 'atomic/{type}';\n$host: host('{name}');\n\n:host {\n\t@include {type}($host);\n}\n",
 			"description": ""
 		}
   },
