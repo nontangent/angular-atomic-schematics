@@ -1,6 +1,6 @@
 {
   "name": "angular-atomic-schematics",
-  "version": "0.2.8",
+  "version": "0.2.9",
   "description": "This is an atomic design schematics for Angular.",
   "scripts": {
     "build": "tsc -p tsconfig.json && scripts/post-build.sh",
