@@ -59,8 +59,11 @@ export function setUpAngularJson(options: any) {
 export function addStyleFiles(options: any) {
 	return (host: Tree, context: SchematicContext) => {
 		if (host.exists(`${options.stylesDir}/atomic`)) {
+			console.log(`${options.stylesDir}/atomic already exists.`);
 			return host
 		}
+
+		console.log(`${options.stylesDir}/atomic does not exist.`);
 		
 		return mergeWith(apply(url('./files'), [
 			template({}),
