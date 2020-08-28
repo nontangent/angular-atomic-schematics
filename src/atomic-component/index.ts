@@ -89,52 +89,52 @@ export function exportBarrel(options: any) {
 
 export function addPathToRoutes(options: any) {
 	return (host: Tree) => {
-		const routingModulePath = 'src/app/app-routing.module.ts';
+		// const routingModulePath = 'src/app/app-routing.module.ts';
 
-		const route = `{
-			path: 'test',
-			loadChildren: '() => import('./test/test.module').then(m => m.TestModule)'
-		}`;
+		// const route = `{
+		// 	path: 'test',
+		// 	loadChildren: '() => import('./test/test.module').then(m => m.TestModule)'
+		// }`;
 
-		const src = host.read(routingModulePath)?.toString('utf-8');
-		const nodes = getSourceNodes(src);
-		const routeNodes = nodes.filter((n: ts.Node) => {
-			if (n.kind === ts.SyntaxKind.VariableDeclaration) {
-				if (
-					n.getChildren().findIndex(c => {
-						return (
-							c.kind === ts.SyntaxKind.Identifier && c.getText() === 'routes'
-						);
-					}) !== -1
-				) {
-					return true;
-				}
-			}
-			return false;
-		}).map((n: ts.Node) => {
-			const arrNodes = n
-				.getChildren()
-				.filter(c => (c.kind = ts.SyntaxKind.ArrayLiteralExpression));
-			return arrNodes[arrNodes.length - 1];
-		});
+		// const src = host.read(routingModulePath)?.toString('utf-8');
+		// const nodes = getSourceNodes(src);
+		// const routeNodes = nodes.filter((n: ts.Node) => {
+		// 	if (n.kind === ts.SyntaxKind.VariableDeclaration) {
+		// 		if (
+		// 			n.getChildren().findIndex(c => {
+		// 				return (
+		// 					c.kind === ts.SyntaxKind.Identifier && c.getText() === 'routes'
+		// 				);
+		// 			}) !== -1
+		// 		) {
+		// 			return true;
+		// 		}
+		// 	}
+		// 	return false;
+		// }).map((n: ts.Node) => {
+		// 	const arrNodes = n
+		// 		.getChildren()
+		// 		.filter(c => (c.kind = ts.SyntaxKind.ArrayLiteralExpression));
+		// 	return arrNodes[arrNodes.length - 1];
+		// });
 
-		if (routeNodes.length === 1) {
-			const navigation: ts.ArrayLiteralExpression = routeNodes[0] as ts.ArrayLiteralExpression;
-			const fullText = navigation.getFullText();
-			let toInsert = '';
-			if (navigation.elements.length > 0) {
-				if (fullText.match(/\r\n/)) {
-					toInsert = `${fullText.match(/\r\n(\r?)\s*/)[0]}${route},`;
-				} else {
-					toInsert = `${route},`;
-				}
-			} else {
-				toInsert = `${route}`;
-			}
-			const recorder = host.beginUpdate(routingModulePath);
-			recorder.insertRight(navigation.getStart() + 1, toInsert);
-			host.commitUpdate(recorder);
-		}
+		// if (routeNodes.length === 1) {
+		// 	const navigation: ts.ArrayLiteralExpression = routeNodes[0] as ts.ArrayLiteralExpression;
+		// 	const fullText = navigation.getFullText();
+		// 	let toInsert = '';
+		// 	if (navigation.elements.length > 0) {
+		// 		if (fullText.match(/\r\n/)) {
+		// 			toInsert = `${fullText.match(/\r\n(\r?)\s*/)[0]}${route},`;
+		// 		} else {
+		// 			toInsert = `${route},`;
+		// 		}
+		// 	} else {
+		// 		toInsert = `${route}`;
+		// 	}
+		// 	const recorder = host.beginUpdate(routingModulePath);
+		// 	recorder.insertRight(navigation.getStart() + 1, toInsert);
+		// 	host.commitUpdate(recorder);
+		// }
 
 		// const componentChange = insertImport(
 		// 	src,
