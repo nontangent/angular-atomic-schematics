@@ -2,42 +2,42 @@
   "$schema": "../node_modules/@angular-devkit/schematics/collection-schema.json",
   "extends": "@schematics/angular",
   "schematics": {
-	"atomic-component": {
-		"aliases": ["ac"],
-		"description": "Create an atomic component",
-		"factory": "./atomic-component/index",
-		"schema": "./atomic-component/schema.json"
-	},
+    "atomic-component": {
+      "aliases": ["ac"],
+      "description": "Create an atomic component",
+      "factory": "./atomic-component/index",
+      "schema": "./atomic-component/schema.json"
+    },
     "atom": {
-			"description": "Create an atom.",
+      "description": "Create an atom.",
       "factory": "./atomic-component/index#atom",
       "schema": "./atomic-component/schema.json"
     },
     "molecule": {
       "description": "Create an molecule.",
-			"factory": "./atomic-component/index#molecule",
+      "factory": "./atomic-component/index#molecule",
       "schema": "./atomic-component/schema.json"
     },
     "organism": {
       "description": "Create an organism.",
-			"factory": "./atomic-component/index#organism",
-			"schema": "./atomic-component/schema.json"
+      "factory": "./atomic-component/index#organism",
+      "schema": "./atomic-component/schema.json"
     },
     "template": {
       "description": "Create an template.",
-			"factory": "./atomic-component/index#template",
+      "factory": "./atomic-component/index#template",
       "schema": "./atomic-component/schema.json"
     },
-	"ng-add": {
-		"description": "Add angular-atomic-schematics",
-		"factory": "./ng-add/index",
-		"schema": "./ng-add/schema.json"
-	},
-	"setup-project": {
-		"description": "Setup angular-atomic-schematics",
-		"factory": "./setup-project/index",
-		"schema": "./ng-add//schema.json",
-		"hidden": true
-	}
+    "ng-add": {
+      "description": "Add angular-atomic-schematics",
+      "factory": "./ng-add/index",
+      "schema": "./ng-add/schema.json"
+    },
+    "setup-project": {
+      "description": "Setup angular-atomic-schematics",
+      "factory": "./setup-project/index",
+      "schema": "./ng-add//schema.json",
+      "hidden": true
+    }
   }
 }
