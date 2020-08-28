@@ -49,7 +49,7 @@ export function setUpAngularJson(options: any) {
 		});
 
 		// Atomic Common Stylesにパスを通す
-		addStyleIncludePathToAngularJson(host, options.project, 'src/styles');
+		addStyleIncludePathToAngularJson(host, options.project, options.stylesDir);
 
 		return host;
 	};
@@ -58,6 +58,10 @@ export function setUpAngularJson(options: any) {
 
 export function addStyleFiles(options: any) {
 	return (host: Tree, context: SchematicContext) => {
+		if (host.exists(`${options.stylesDir}/atomic`)) {
+			return host
+		}
+		
 		return mergeWith(apply(url('./files'), [
 			template({}),
 			move(options.stylesDir)

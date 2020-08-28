@@ -14,19 +14,29 @@
       "schema": "./atomic-component/schema.json"
     },
     "molecule": {
-      "description": "Create an molecule.",
+      "description": "Create a molecule.",
       "factory": "./atomic-component/index#molecule",
       "schema": "./atomic-component/schema.json"
     },
     "organism": {
-      "description": "Create an organism.",
+      "description": "Create a organism.",
       "factory": "./atomic-component/index#organism",
       "schema": "./atomic-component/schema.json"
     },
     "template": {
-      "description": "Create an template.",
+      "description": "Create a template.",
       "factory": "./atomic-component/index#template",
       "schema": "./atomic-component/schema.json"
+    },
+    "page": {
+      "description": "Create a page",
+      "factory": "./atomic-component/index",
+      "schema": "./atomic-component/schema.json"
+    },
+    "pages": {
+      "description": "Create a pages",
+      "factory": "./pages/index",
+      "schema": "./pages/schema.json"
     },
     "ng-add": {
       "description": "Add angular-atomic-schematics",
