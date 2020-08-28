@@ -8,7 +8,9 @@ import {
 	url,
 	applyTemplates,
 	mergeWith,
-	move
+	move,
+	noop,
+	schematic
 } from '@angular-devkit/schematics';
 import * as strings from '@angular-devkit/core/src/utils/strings';
 import { parseName } from '@schematics/angular/utility/parse-name';
@@ -89,72 +91,76 @@ export function exportBarrel(options: any) {
 
 export function addPathToRoutes(options: any) {
 	return (host: Tree) => {
-		// const routingModulePath = 'src/app/app-routing.module.ts';
+		console.log('routingModulePath:', options.routingModulePath);
+		const src = ts.createSourceFile(
+			options.routingModulePath,
+			host.read(options.routingModulePath)!.toString('utf-8'),
+			ts.ScriptTarget.Latest,
+			true
+		);
 
-		// const route = `{
-		// 	path: 'test',
-		// 	loadChildren: '() => import('./test/test.module').then(m => m.TestModule)'
-		// }`;
+		const nodes = getSourceNodes(src);
+		const routeNodes = nodes.filter((n: ts.Node) => {
+			if (n.kind === ts.SyntaxKind.VariableDeclaration) {
+				if (
+					n.getChildren().findIndex(c => {
+						return (
+							c.kind === ts.SyntaxKind.Identifier && c.getText() === 'routes'
+						);
+					}) !== -1
+				) {
+					return true;
+				}
+			}
+			return false;
+		}).map((n: ts.Node) => {
+			const arrNodes = n
+				.getChildren()
+				.filter(c => (c.kind = ts.SyntaxKind.ArrayLiteralExpression));
+			return arrNodes[arrNodes.length - 1];
+		});
 
-		// const src = host.read(routingModulePath)?.toString('utf-8');
-		// const nodes = getSourceNodes(src);
-		// const routeNodes = nodes.filter((n: ts.Node) => {
-		// 	if (n.kind === ts.SyntaxKind.VariableDeclaration) {
-		// 		if (
-		// 			n.getChildren().findIndex(c => {
-		// 				return (
-		// 					c.kind === ts.SyntaxKind.Identifier && c.getText() === 'routes'
-		// 				);
-		// 			}) !== -1
-		// 		) {
-		// 			return true;
-		// 		}
-		// 	}
-		// 	return false;
-		// }).map((n: ts.Node) => {
-		// 	const arrNodes = n
-		// 		.getChildren()
-		// 		.filter(c => (c.kind = ts.SyntaxKind.ArrayLiteralExpression));
-		// 	return arrNodes[arrNodes.length - 1];
-		// });
-
-		// if (routeNodes.length === 1) {
-		// 	const navigation: ts.ArrayLiteralExpression = routeNodes[0] as ts.ArrayLiteralExpression;
-		// 	const fullText = navigation.getFullText();
-		// 	let toInsert = '';
-		// 	if (navigation.elements.length > 0) {
-		// 		if (fullText.match(/\r\n/)) {
-		// 			toInsert = `${fullText.match(/\r\n(\r?)\s*/)[0]}${route},`;
-		// 		} else {
-		// 			toInsert = `${route},`;
-		// 		}
-		// 	} else {
-		// 		toInsert = `${route}`;
-		// 	}
-		// 	const recorder = host.beginUpdate(routingModulePath);
-		// 	recorder.insertRight(navigation.getStart() + 1, toInsert);
-		// 	host.commitUpdate(recorder);
-		// }
-
-		// const componentChange = insertImport(
-		// 	src,
-		// 	routingModulePath,
-		// 	`${containerComponent}`,
-		// 	`./${strings.dasherize(options.feature)}-container/${strings.dasherize(
-		// 		options.feature
-		// 	)}-container.component`,
-		// 	false
-		// );
-		// if (componentChange instanceof InsertChange) {
-		// 	recorder.insertLeft(
-		// 		(componentChange as InsertChange).pos,
-		// 		(componentChange as InsertChange).toAdd
-		// 	);
-		// }
-		
+		if (routeNodes.length === 1) {
+			const n: ts.ArrayLiteralExpression = routeNodes[0] as ts.ArrayLiteralExpression;
+			let toInsert = '';
+			if (n.elements.length > 0 && !options.removeOtherRoutes) {
+				toInsert = `${options.route},`;
+			} else {
+				toInsert = `${options.route}`;
+			}
+			const recorder = host.beginUpdate(options.routingModulePath);
+			// if (options.removeOtherRoutes) {
+			// 	recorder.remove(n.getStart() + 1, n.getEnd() - n.getFullStart() - 4);
+			// }
+			recorder.insertRight(n.getStart() + 1, toInsert);
+			host.commitUpdate(recorder);
+		}		
 
 		return host;
 	};
+}
+
+function buildPagesModuleRoute(name): string {
+	return `
+	{
+		path: '${name}',
+		loadChildren: () => import('./${
+			strings.dasherize(name)
+		}/${
+			strings.dasherize(name)
+		}.module').then(m => m.${
+			strings.classify(name)
+		}Module)
+	}`;
+}
+
+function buildPageModuleRoute(name): string {
+	return `
+	{
+		path: '',
+		component: ${strings.classify(name)}Page,
+		// loadChildren: () => import('./pages/pages.module').then(m => m.PagesModule)
+	}`;
 }
 
 export function atom(options: any): Rule {
@@ -192,21 +198,86 @@ export function template(options: any): Rule {
 export function page(options: any): Rule {
 	return async (host: Tree, _: SchematicContext) => {
 		// pathに不足しているpagesディレクトリを補う
+		const workspace = await getWorkspace(host);
+		const project = workspace.projects.get(options.project);
 
-		const fullPath = 'pages/test2';
-		let curPath = '';
-		for (let path of fullPath.split('/')) {
-			curPath += path
-			if (!host.exists(`${curPath}/${path}.module`)) {
-				// pages.module作成
-			}
-			// pages-routing.moduleのroutesにpathを追加
-
+		if (options.path === undefined && project) {
+			options.path = buildDefaultPath(project);
 		}
+
+		const parsedPath = parseName(options.path, options.name);
+		options.name = parsedPath.name;
+		options.path = parsedPath.path;
+
+		options.type = 'page';
+
+		const styleHeader = format(options.styleHeader, {
+			name: options.name,
+			type: options.type
+		});
+
+		const fullPath = `${options.path}/${options.name}`;
+
+		const paths = fullPath.split('/');
+		// paths.shift();
+		paths.pop();
+		const pagesName = paths.pop();
+		const pagesPath = paths.join('/');
+
+		console.log(`${pagesPath}/${pagesName}.module.ts`);
+		console.log(host.exists(`${pagesPath}/${pagesName}.module.ts`));
+
+		return chain([
+			host.exists(`${pagesPath}/${pagesName}/${pagesName}.module.ts`) ? 
+			noop() : externalSchematic('angular-atomic-schematics', 'pages', {
+				name: pagesName,
+				path: pagesPath,
+				project: options.project
+			}),
+			addPathToRoutes({
+				...options,
+				routingModulePath: `${pagesPath}/${pagesName}/${pagesName}.module.ts`,
+				route: buildPagesModuleRoute(options.name),
+				removeOtherRoutes: false
+
+			}),
+			externalSchematic('angular-atomic-schematics', 'pages', {
+				name: options.name,
+				path: options.path,
+				project: options.project
+			}),
+			// externalSchematic('@schematics/angular', 'module', {
+			// 	name: options.name,
+			// 	path: options.path,
+			// 	project: options.project
+			// }),
+			externalSchematic('angular-host-css-variable', 'component', {
+				...options,
+				styleHeader: styleHeader,
+				export: true
+			}),
+			addPathToRoutes({
+				...options,
+				routingModulePath: `${options.path}/${options.name}/${options.name}.module.ts`,
+				route: buildPageModuleRoute(options.name),
+				removeOtherRoutes: true
+			}),
+		]);
+
+
+		// let curPath = '';
+		// for (let path of fullPath.split('/')) {
+		// 	curPath += path
+		// 	if (!host.exists(`${curPath}/${path}.module`)) {
+		// 		// pages.module作成
+		// 	}
+		// 	// pages-routing.moduleのroutesにpathを追加
+
+		// }
 		
-		// pages.moduleがあるかを確認し、なければファイル追加
-		// atomicComponentを作成する上の階層のpages.moduleにrouteを追加
-		// atomicComponentを作成
+		// // pages.moduleがあるかを確認し、なければファイル追加
+		// // atomicComponentを作成する上の階層のpages.moduleにrouteを追加
+		// // atomicComponentを作成
 
 	}
 }

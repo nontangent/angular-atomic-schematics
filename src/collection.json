@@ -30,7 +30,7 @@
     },
     "page": {
       "description": "Create a page",
-      "factory": "./atomic-component/index",
+      "factory": "./atomic-component/index#page",
       "schema": "./atomic-component/schema.json"
     },
     "pages": {

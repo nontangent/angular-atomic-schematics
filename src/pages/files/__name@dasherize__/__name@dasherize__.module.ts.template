@@ -8,7 +8,7 @@ const routes: Routes = [
 @NgModule({
   declarations: [],
   imports: [<% if (commonModule) { %>
-    CommonModule<% } %>
+    CommonModule,<% } %>
     RouterModule.forChild(routes)
   ]
 })
