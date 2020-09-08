@@ -46,8 +46,7 @@
     "setup-project": {
       "description": "Setup angular-atomic-schematics",
       "factory": "./setup-project/index",
-      "schema": "./ng-add//schema.json",
-      "hidden": true
+      "schema": "./ng-add//schema.json"
     }
   }
 }

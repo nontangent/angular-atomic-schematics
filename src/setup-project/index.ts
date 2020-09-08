@@ -17,6 +17,8 @@ import {
 	addPathsToTsConfig
 } from '../utilities';
 
+import * as fs from 'fs';
+
 export default function(options: any): Rule {
 	return chain([
 		// angular.jsonの更新
@@ -58,17 +60,14 @@ export function setUpAngularJson(options: any) {
 
 export function addStyleFiles(options: any) {
 	return (host: Tree, context: SchematicContext) => {
-		if (host.getDir(`${options.stylesDir}/atomic`)) {
-			console.log(`${options.stylesDir}/atomic already exists.`);
+		if (fs.existsSync(`${options.stylesDir}/atomic`)) {
 			return host
-		}
-
-		console.log(`${options.stylesDir}/atomic does not exist.`);
-		
-		return mergeWith(apply(url('./files'), [
-			template({}),
-			move(options.stylesDir)
-		]));
+		} else {
+			return mergeWith(apply(url('./files'), [
+				template({}),
+				move(options.stylesDir)
+			]));
+		}	
 	}
 }
 
