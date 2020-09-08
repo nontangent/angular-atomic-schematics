@@ -12,7 +12,7 @@ export default function(options: any): Rule {
 		addPackageToPackageJson(
 			host, 
 			packageName, 
-			'0.2.x',
+			'0.1000.x',
 			'devDependencies'
 		);
 
@@ -26,7 +26,7 @@ export default function(options: any): Rule {
 		addPackageToPackageJson(
 			host,
 			'angular-custom-webpack-chaining',
-			'0.4.x',
+			'0.1000.x',
 			'devDependencies'
 		);
 
