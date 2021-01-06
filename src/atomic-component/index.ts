@@ -1,31 +1,14 @@
-import {
-	Rule,
-	Tree,
-	SchematicContext,
-	apply,
-	chain,
-	externalSchematic,
-	url,
-	applyTemplates,
-	mergeWith,
-	move,
-	noop,
-	schematic
+import { 
+	Rule, Tree, SchematicContext, apply, chain, externalSchematic, url,
+	applyTemplates, mergeWith, move, noop, schematic
 } from '@angular-devkit/schematics';
 import * as strings from '@angular-devkit/core/src/utils/strings';
 import { parseName } from '@schematics/angular/utility/parse-name';
-import {
-	buildDefaultPath,
-	getWorkspace
-} from '@schematics/angular/utility/workspace';
+import { buildDefaultPath, getWorkspace } from '@schematics/angular/utility/workspace';
 import * as format from 'string-template';
 import { join } from 'path';
-import {
-	insertImport,
-	getSourceNodes,
-	InsertChange
-  } from '@nrwl/workspace/src/utils/ast-utils';
-  import * as ts from 'typescript';
+import { getSourceNodes } from '@nrwl/workspace/src/utils/ast-utils';
+import * as ts from 'typescript';
 
 export default function atomicComponent(options: any): Rule {
 	return async (host: Tree, _: SchematicContext) => {
@@ -116,7 +99,7 @@ export function addPathToRoutes(options: any) {
 		}).map((n: ts.Node) => {
 			const arrNodes = n
 				.getChildren()
-				.filter(c => (c.kind = ts.SyntaxKind.ArrayLiteralExpression));
+				.filter(c => (c.kind === ts.SyntaxKind.ArrayLiteralExpression));
 			return arrNodes[arrNodes.length - 1];
 		});
 
