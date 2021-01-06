@@ -3,16 +3,10 @@
 @mixin component($host) {
   display: block;
 
-  @include hvar(--primary-color, white);
-  @include hvar(--secondary-color, black);
-  @include hvar(--tertiary-color,red);
   @include hvar(--cell, 8px);
 
 	* {
-    --base-color: hvar(--primary-color);
-    --main-color: hvar(--secondary-color);
-    --accent-color: hvar(--tertiary-color);
-    --cell: hvar(--cell);
+    --cell: #{hvar(--cell)};
   }
 }
 

@@ -14,7 +14,7 @@
     "componentsDir": {
       "description": "Setup components directory",
       "type": "string",
-      "default": "src/app/shared/components",
+      "default": "src/app/_shared/components",
       "x-prompt": "Where do you setup Angular Atomic Components?" 
     },
 		"stylesDir": {

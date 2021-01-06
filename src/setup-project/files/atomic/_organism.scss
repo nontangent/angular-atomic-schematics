@@ -3,10 +3,5 @@
 
 @mixin organism($host) {
 	@include component($host);
-  @include hvar(--width, 100%);
-  @include hvar(--height, 100%);
-
-  width: hvar(--width);
-  height: hvar(--height);
 }
 
